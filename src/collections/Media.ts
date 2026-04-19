@@ -18,5 +18,27 @@ export const Media: CollectionConfig = {
       localized: true,
     },
   ],
-  upload: true,
+  upload: {
+    imageSizes: [
+      {
+        name: 'sm',
+        width: 480,
+        withoutEnlargement: true,
+        formatOptions: { format: 'webp', options: { quality: 80 } },
+      },
+      {
+        name: 'md',
+        width: 768,
+        withoutEnlargement: true,
+        formatOptions: { format: 'webp', options: { quality: 80 } },
+      },
+      {
+        name: 'lg',
+        width: 1080,
+        withoutEnlargement: true,
+        formatOptions: { format: 'webp', options: { quality: 80 } },
+      },
+    ],
+    focalPoint: true,
+  },
 }
