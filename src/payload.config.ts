@@ -14,10 +14,8 @@ import { InfoPage } from './collections/InfoPage'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const serverURL = process.env.SERVER_URL ? new URL(process.env.SERVER_URL) : null
-
 export default buildConfig({
-  serverURL: serverURL ? serverURL.origin : undefined,
+  serverURL: process.env.SERVER_URL,
   i18n: {
     supportedLanguages: { sv, en },
   },
@@ -32,7 +30,7 @@ export default buildConfig({
     },
   },
   routes: {
-    admin: serverURL ? `${serverURL.pathname.replace(/\/$/, '')}/admin` : '',
+    admin: '/_services/cms/admin',
   },
   cors: {
     origins: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : [],
