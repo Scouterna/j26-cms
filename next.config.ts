@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  basePath: process.env.NEXT_BASE_PATH || '',
   images: {
     localPatterns: [
       {

@@ -54,7 +54,9 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: URL=/_services/strapi
+          build-args: |
+            URL=/_services/strapi
+            NEXT_BASE_PATH=/_services/cms
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
