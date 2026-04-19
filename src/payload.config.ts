@@ -29,11 +29,6 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  routes: {
-    admin: '/_services/cms/admin',
-    api: '/_services/cms/api',
-    graphQL: '/_services/cms/graphql',
-  },
   cors: {
     origins: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : [],
   },
