@@ -5,6 +5,9 @@ export const InfoPage: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    defaultColumns: ['title', 'content'],
+  },
   fields: [
     {
       name: 'title',
