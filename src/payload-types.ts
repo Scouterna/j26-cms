@@ -70,6 +70,9 @@ export interface Config {
     users: User;
     media: Media;
     'info-page': InfoPage;
+    'screen-slides': ScreenSlide;
+    'screen-playlists': ScreenPlaylist;
+    'screen-screens': ScreenScreen;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +83,9 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'info-page': InfoPageSelect<false> | InfoPageSelect<true>;
+    'screen-slides': ScreenSlidesSelect<false> | ScreenSlidesSelect<true>;
+    'screen-playlists': ScreenPlaylistsSelect<false> | ScreenPlaylistsSelect<true>;
+    'screen-screens': ScreenScreensSelect<false> | ScreenScreensSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -218,6 +224,102 @@ export interface InfoPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screen-slides".
+ */
+export interface ScreenSlide {
+  id: number;
+  /**
+   * Internt namn för att hålla ordning på slides. Visas inte på skärmarna
+   */
+  name: string;
+  /**
+   * Layout för skärmen. Varje rad innehåll nedan tar upp en ruta i layouten i den ordning de ligger.
+   */
+  layout: 'two-rows-1-1' | 'three-rows-2-1-3' | 'voting-map';
+  content?:
+    | (
+        | {
+            url?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'screen-iframe-content';
+          }
+        | {
+            richText?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'screen-rich-text-content';
+          }
+        | {
+            image?: (number | null) | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'screen-image-content';
+          }
+        | {
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'screen-empty-content';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screen-playlists".
+ */
+export interface ScreenPlaylist {
+  id: number;
+  /**
+   * Internt namn för att hålla ordning på spellistor. Visas inte på skärmarna
+   */
+  name: string;
+  slides?:
+    | {
+        slide: number | ScreenSlide;
+        duration: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screen-screens".
+ */
+export interface ScreenScreen {
+  id: number;
+  /**
+   * Internt namn för att hålla ordning på skärmar. Visas inte på skärmen.
+   */
+  name: string;
+  /**
+   * Endast små engelska bokstäver, siffror och understreck.
+   */
+  slug: string;
+  playlist: number | ScreenPlaylist;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -251,6 +353,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'info-page';
         value: number | InfoPage;
+      } | null)
+    | ({
+        relationTo: 'screen-slides';
+        value: number | ScreenSlide;
+      } | null)
+    | ({
+        relationTo: 'screen-playlists';
+        value: number | ScreenPlaylist;
+      } | null)
+    | ({
+        relationTo: 'screen-screens';
+        value: number | ScreenScreen;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -377,6 +491,74 @@ export interface InfoPageSelect<T extends boolean = true> {
   title?: T;
   icon?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screen-slides_select".
+ */
+export interface ScreenSlidesSelect<T extends boolean = true> {
+  name?: T;
+  layout?: T;
+  content?:
+    | T
+    | {
+        'screen-iframe-content'?:
+          | T
+          | {
+              url?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'screen-rich-text-content'?:
+          | T
+          | {
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'screen-image-content'?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'screen-empty-content'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screen-playlists_select".
+ */
+export interface ScreenPlaylistsSelect<T extends boolean = true> {
+  name?: T;
+  slides?:
+    | T
+    | {
+        slide?: T;
+        duration?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "screen-screens_select".
+ */
+export interface ScreenScreensSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  playlist?: T;
   updatedAt?: T;
   createdAt?: T;
 }
