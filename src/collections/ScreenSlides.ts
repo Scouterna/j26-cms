@@ -33,16 +33,24 @@ export const ScreenSlides: CollectionConfig = {
       },
       options: [
         {
-          label: 'Två rader, [4:3] [4:3]',
+          label: '[kom] Två rader, [4:3] [4:3]',
           value: 'two-rows-1-1',
         },
         {
-          label: 'Tre rader, [4:3 4:3] [4:3] [3:4 3:4 3:4]',
+          label: '[kom] Tre rader, [4:3 4:3] [4:3] [3:4 3:4 3:4]',
           value: 'three-rows-2-1-3',
         },
         {
-          label: 'Röstningskarta',
+          label: '[kom] Röstningskarta',
           value: 'voting-map',
+        },
+        {
+          label: '[ser] Nytt & nyttigt - Banner',
+          value: 'news-banner-1',
+        },
+        {
+          label: '[ser] Nytt & nyttigt - Väder',
+          value: 'news-weather-1',
         },
       ],
     },

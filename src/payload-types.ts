@@ -235,7 +235,7 @@ export interface ScreenSlide {
   /**
    * Layout för skärmen. Varje rad innehåll nedan tar upp en ruta i layouten i den ordning de ligger.
    */
-  layout: 'two-rows-1-1' | 'three-rows-2-1-3' | 'voting-map';
+  layout: 'two-rows-1-1' | 'three-rows-2-1-3' | 'voting-map' | 'news-banner-1' | 'news-weather-1';
   content?:
     | (
         | {
