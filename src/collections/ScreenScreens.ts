@@ -7,6 +7,7 @@ export const ScreenScreens: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
+    preview: ({ slug }) => `https://app.dev.j26.se/_services/screens/?slug=${slug}`,
   },
   fields: [
     {
