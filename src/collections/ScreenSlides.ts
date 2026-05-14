@@ -33,6 +33,10 @@ export const ScreenSlides: CollectionConfig = {
       },
       options: [
         {
+          label: '[kom] En rad, [9:16]',
+          value: 'one-row-1',
+        },
+        {
           label: '[kom] Två rader, [4:3] [4:3]',
           value: 'two-rows-1-1',
         },
