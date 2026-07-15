@@ -35,6 +35,23 @@ export const ScreenScreens: CollectionConfig = {
       },
     },
     {
+      name: 'type',
+      label: 'Typ',
+      type: 'select',
+      required: true,
+      defaultValue: 'service',
+      options: [
+        {
+          label: 'Service (vänster)',
+          value: 'service',
+        },
+        {
+          label: 'Kommunikation (höger)',
+          value: 'kommunikation',
+        },
+      ],
+    },
+    {
       name: 'playlist',
       label: 'Spellista',
       type: 'relationship',

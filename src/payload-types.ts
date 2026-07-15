@@ -322,6 +322,7 @@ export interface ScreenScreen {
    * Endast små engelska bokstäver, siffror och understreck.
    */
   slug: string;
+  type: 'service' | 'kommunikation';
   playlist: number | ScreenPlaylist;
   updatedAt: string;
   createdAt: string;
@@ -567,6 +568,7 @@ export interface ScreenPlaylistsSelect<T extends boolean = true> {
 export interface ScreenScreensSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  type?: T;
   playlist?: T;
   updatedAt?: T;
   createdAt?: T;

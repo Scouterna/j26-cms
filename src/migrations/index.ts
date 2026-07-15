@@ -4,6 +4,7 @@ import * as migration_20260511_184433 from './20260511_184433';
 import * as migration_20260511_194222 from './20260511_194222';
 import * as migration_20260514_141211 from './20260514_141211';
 import * as migration_20260715_183347_important_info_and_rolling_text from './20260715_183347_important_info_and_rolling_text';
+import * as migration_20260715_184346_show_important_info_on_service_only from './20260715_184346_show_important_info_on_service_only';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20260715_183347_important_info_and_rolling_text.up,
     down: migration_20260715_183347_important_info_and_rolling_text.down,
-    name: '20260715_183347_important_info_and_rolling_text'
+    name: '20260715_183347_important_info_and_rolling_text',
+  },
+  {
+    up: migration_20260715_184346_show_important_info_on_service_only.up,
+    down: migration_20260715_184346_show_important_info_on_service_only.down,
+    name: '20260715_184346_show_important_info_on_service_only'
   },
 ];

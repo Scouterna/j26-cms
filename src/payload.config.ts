@@ -63,7 +63,7 @@ export default buildConfig({
           return Response.json({ error: 'Screen not found' }, { status: 404 })
         }
 
-        const screen = await req.payload.find({
+        const screens = await req.payload.find({
           collection: 'screen-screens',
           where: {
             slug: {
@@ -82,15 +82,21 @@ export default buildConfig({
           },
         })
 
-        const playlist = screen.docs[0]?.playlist
-        if (!playlist || typeof playlist === 'number') {
+        const screen = screens.docs[0]
+
+        if (!screen) {
           return Response.json({ error: 'Screen not found' }, { status: 404 })
+        }
+
+        const playlist = screen.playlist
+        if (!playlist || typeof playlist === 'number') {
+          return Response.json({ error: 'Playlist not found' }, { status: 404 })
         }
 
         const slideRow = playlist.slides ?? []
 
         if (slideRow.length === 0) {
-          return Response.json({ error: 'Screen not found' }, { status: 404 })
+          return Response.json({ error: 'No slides found in playlist' }, { status: 404 })
         }
 
         const formattedSlides = slideRow.flatMap(({ slide, duration }) => {
@@ -110,6 +116,8 @@ export default buildConfig({
           depth: 20,
         })
 
+        const showImportantInfo = importantInfo.active && screen.type === 'service'
+
         return Response.json({
           slides: formattedSlides,
           rollingText: playlist.rollingText
@@ -117,7 +125,7 @@ export default buildConfig({
                 content: playlist.rollingText,
               }
             : null,
-          importantInfo: importantInfo.active
+          importantInfo: showImportantInfo
             ? {
                 content: importantInfo.content ?? null,
               }
