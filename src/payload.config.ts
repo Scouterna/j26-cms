@@ -14,6 +14,7 @@ import { InfoPage } from './collections/InfoPage'
 import { ScreenSlides } from './collections/ScreenSlides'
 import { ScreenPlaylists } from './collections/ScreenPlaylists'
 import { ScreenScreens } from './collections/ScreenScreens'
+import { ImportantInfo } from './globals/ImportantInfo'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -37,6 +38,7 @@ export default buildConfig({
     origins: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : [],
   },
   collections: [Users, Media, InfoPage, ScreenSlides, ScreenPlaylists, ScreenScreens],
+  globals: [ImportantInfo],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -71,6 +73,7 @@ export default buildConfig({
           depth: 20, // Make sure we get all the way down to for example nested rich content blocks with images
           populate: {
             'screen-playlists': {
+              rollingText: true,
               slides: {
                 duration: true,
                 slide: true,
@@ -102,7 +105,24 @@ export default buildConfig({
           }
         })
 
-        return Response.json(formattedSlides)
+        const importantInfo = await req.payload.findGlobal({
+          slug: 'important-info',
+          depth: 20,
+        })
+
+        return Response.json({
+          slides: formattedSlides,
+          rollingText: playlist.rollingText
+            ? {
+                content: playlist.rollingText,
+              }
+            : null,
+          importantInfo: importantInfo.active
+            ? {
+                content: importantInfo.content ?? null,
+              }
+            : null,
+        })
       },
     },
   ],

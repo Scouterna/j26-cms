@@ -19,6 +19,15 @@ export const ScreenPlaylists: CollectionConfig = {
       },
     },
     {
+      name: 'rollingText',
+      label: 'Rullande text',
+      type: 'text',
+      admin: {
+        description:
+          'Text som rullar längst ner på skärmen. Texten visas på samtliga slides i spellistan. Töm fältet för att gömma hela rullisten.',
+      },
+    },
+    {
       name: 'slides',
       label: 'Slides',
       type: 'array',

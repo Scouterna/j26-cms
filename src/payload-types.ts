@@ -95,8 +95,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('sv' | 'en') | ('sv' | 'en')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'important-info': ImportantInfo;
+  };
+  globalsSelect: {
+    'important-info': ImportantInfoSelect<false> | ImportantInfoSelect<true>;
+  };
   locale: 'sv' | 'en';
   widgets: {
     collections: CollectionsWidget;
@@ -290,6 +294,10 @@ export interface ScreenPlaylist {
    * Internt namn för att hålla ordning på spellistor. Visas inte på skärmarna
    */
   name: string;
+  /**
+   * Text som rullar längst ner på skärmen. Texten visas på samtliga slides i spellistan. Töm fältet för att gömma hela rullisten.
+   */
+  rollingText?: string | null;
   slides?:
     | {
         slide: number | ScreenSlide;
@@ -541,6 +549,7 @@ export interface ScreenSlidesSelect<T extends boolean = true> {
  */
 export interface ScreenPlaylistsSelect<T extends boolean = true> {
   name?: T;
+  rollingText?: T;
   slides?:
     | T
     | {
@@ -601,6 +610,45 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "important-info".
+ */
+export interface ImportantInfo {
+  id: number;
+  /**
+   * Slå på för att visa viktig info på serviceskärmarna. Detta puttar undan annat innehåll och är väldigt påträngande, med gul bakgrund och varningstriangel.
+   */
+  active?: boolean | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "important-info_select".
+ */
+export interface ImportantInfoSelect<T extends boolean = true> {
+  active?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
