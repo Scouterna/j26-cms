@@ -74,6 +74,7 @@ export default buildConfig({
           populate: {
             'screen-playlists': {
               rollingText: true,
+              bottomIframeURL: true,
               slides: {
                 duration: true,
                 slide: true,
@@ -120,7 +121,7 @@ export default buildConfig({
 
         return Response.json({
           slides: formattedSlides,
-          rollingText: playlist.rollingText
+          rollingText: playlist.rollingText?.trim()
             ? {
                 content: playlist.rollingText,
               }
@@ -130,6 +131,7 @@ export default buildConfig({
                 content: importantInfo.content ?? null,
               }
             : null,
+          bottomIframeURL: playlist.bottomIframeURL?.trim() || null,
         })
       },
     },

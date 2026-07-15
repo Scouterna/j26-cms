@@ -298,6 +298,10 @@ export interface ScreenPlaylist {
    * Text som rullar längst ner på skärmen. Texten visas på samtliga slides i spellistan. Töm fältet för att gömma hela rullisten.
    */
   rollingText?: string | null;
+  /**
+   * URL till en interaktiv webbvy som visas längst ner på skärmen. Töm fältet för att gömma webbvyn.
+   */
+  bottomIframeURL?: string | null;
   slides?:
     | {
         slide: number | ScreenSlide;
@@ -551,6 +555,7 @@ export interface ScreenSlidesSelect<T extends boolean = true> {
 export interface ScreenPlaylistsSelect<T extends boolean = true> {
   name?: T;
   rollingText?: T;
+  bottomIframeURL?: T;
   slides?:
     | T
     | {

@@ -28,6 +28,15 @@ export const ScreenPlaylists: CollectionConfig = {
       },
     },
     {
+      name: 'bottomIframeURL',
+      label: 'URL till webbvy i botten',
+      type: 'text',
+      admin: {
+        description:
+          'URL till en interaktiv webbvy som visas längst ner på skärmen. Töm fältet för att gömma webbvyn.',
+      },
+    },
+    {
       name: 'slides',
       label: 'Slides',
       type: 'array',
