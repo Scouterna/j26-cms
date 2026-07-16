@@ -3,6 +3,7 @@ import { ScreenEmptyContentBlock } from '../blocks/ScreenEmptyContentBlock'
 import { ScreenIframeContentBlock } from '../blocks/ScreenIframeContentBlock'
 import { ScreenImageContentBlock } from '../blocks/ScreenImageContentBlock'
 import { ScreenRichTextContentBlock } from '../blocks/ScreenRichTextContentBlock'
+import { layoutOptions } from '../fields/layoutOptions'
 
 export const ScreenSlides: CollectionConfig = {
   slug: 'screen-slides',
@@ -30,33 +31,11 @@ export const ScreenSlides: CollectionConfig = {
       admin: {
         description:
           'Layout för skärmen. Varje rad innehåll nedan tar upp en ruta i layouten i den ordning de ligger.',
+        components: {
+          Field: '/fields/LayoutField#LayoutField',
+        },
       },
-      options: [
-        {
-          label: '[kom] En rad, [9:16]',
-          value: 'one-row-1',
-        },
-        {
-          label: '[kom] Två rader, [4:3] [4:3]',
-          value: 'two-rows-1-1',
-        },
-        {
-          label: '[kom] Tre rader, [4:3 4:3] [4:3] [3:4 3:4 3:4]',
-          value: 'three-rows-2-1-3',
-        },
-        {
-          label: '[kom] Röstningskarta',
-          value: 'voting-map',
-        },
-        {
-          label: '[ser] Nytt & nyttigt - Banner',
-          value: 'news-banner-1',
-        },
-        {
-          label: '[ser] Nytt & nyttigt - Väder',
-          value: 'news-weather-1',
-        },
-      ],
+      options: layoutOptions,
     },
     {
       name: 'content',
@@ -69,15 +48,10 @@ export const ScreenSlides: CollectionConfig = {
         ScreenEmptyContentBlock,
       ],
       validate: (value, options) => {
-        // Count the sum of all numbers in the layout ID
-        const NUMBER_REGEX = /\d+/g
+        // Each layout declares how many content-block slots it renders.
         const layout: string | undefined = (options?.data as any)?.layout
 
-        const layoutSlots =
-          layout
-            ?.match(NUMBER_REGEX)
-            ?.map(Number)
-            .reduce((a, b) => a + b, 0) ?? 0
+        const layoutSlots = layoutOptions.find((option) => option.value === layout)?.slots.length ?? 0
         const contentBlocks = (value as any)?.length ?? 0
 
         if (contentBlocks > layoutSlots) {

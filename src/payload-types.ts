@@ -239,7 +239,7 @@ export interface ScreenSlide {
   /**
    * Layout för skärmen. Varje rad innehåll nedan tar upp en ruta i layouten i den ordning de ligger.
    */
-  layout: 'one-row-1' | 'two-rows-1-1' | 'three-rows-2-1-3' | 'voting-map' | 'news-banner-1' | 'news-weather-1';
+  layout: 'kom_single' | 'kom_two_rows' | 'kom_gallery' | 'kom_vote_single' | 'kom_vote_gallery' | 'ser_info';
   content?:
     | (
         | {
