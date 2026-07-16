@@ -117,13 +117,16 @@ export default buildConfig({
           depth: 20,
         })
 
+        // rollingText and bottomIframeURL are Kommunikation-only; importantInfo
+        // is Service-only.
+        const isKommunikation = screen.type === 'kommunikation'
         const showImportantInfo = importantInfo.active && screen.type === 'service'
 
         // The bottom iframe is stored as a path relative to the host that serves
         // the interactive screens. Return it as an absolute URL (prefixed with
         // SERVER_URL) so the screen can embed it directly.
         const baseURL = (process.env.SERVER_URL ?? '').replace(/\/$/, '')
-        const bottomIframe = playlist.bottomIframeURL?.trim()
+        const bottomIframe = isKommunikation ? playlist.bottomIframeURL?.trim() : undefined
         const bottomIframeURL = bottomIframe
           ? /^https?:\/\//i.test(bottomIframe)
             ? bottomIframe
@@ -132,11 +135,12 @@ export default buildConfig({
 
         return Response.json({
           slides: formattedSlides,
-          rollingText: playlist.rollingText?.trim()
-            ? {
-                content: playlist.rollingText,
-              }
-            : null,
+          rollingText:
+            isKommunikation && playlist.rollingText?.trim()
+              ? {
+                  content: playlist.rollingText,
+                }
+              : null,
           importantInfo: showImportantInfo
             ? {
                 content: importantInfo.content ?? null,

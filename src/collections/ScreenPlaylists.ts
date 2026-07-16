@@ -27,6 +27,8 @@ export const ScreenPlaylists: CollectionConfig = {
       admin: {
         description:
           'Text som rullar längst ner på skärmen. Texten visas på samtliga slides i spellistan. Töm fältet för att gömma hela rullisten.',
+        // Kommunikation-only field.
+        condition: (data) => (data as any)?.type === 'kommunikation',
       },
     },
     {
@@ -36,6 +38,8 @@ export const ScreenPlaylists: CollectionConfig = {
       admin: {
         description:
           'Välj en omröstning som visas som interaktiv webbvy längst ner på skärmen. Lämna tomt för att gömma webbvyn.',
+        // Kommunikation-only field.
+        condition: (data) => (data as any)?.type === 'kommunikation',
         components: {
           Field: '/fields/SurveyEmbedField#SurveyEmbedField',
         },
