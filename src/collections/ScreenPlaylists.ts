@@ -29,11 +29,14 @@ export const ScreenPlaylists: CollectionConfig = {
     },
     {
       name: 'bottomIframeURL',
-      label: 'URL till webbvy i botten',
+      label: 'Interaktiv omröstning i botten',
       type: 'text',
       admin: {
         description:
-          'URL till en interaktiv webbvy som visas längst ner på skärmen. Töm fältet för att gömma webbvyn.',
+          'Välj en omröstning som visas som interaktiv webbvy längst ner på skärmen. Lämna tomt för att gömma webbvyn.',
+        components: {
+          Field: '/fields/SurveyEmbedField#SurveyEmbedField',
+        },
       },
     },
     {

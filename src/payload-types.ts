@@ -302,7 +302,7 @@ export interface ScreenPlaylist {
    */
   rollingText?: string | null;
   /**
-   * URL till en interaktiv webbvy som visas längst ner på skärmen. Töm fältet för att gömma webbvyn.
+   * Välj en omröstning som visas som interaktiv webbvy längst ner på skärmen. Lämna tomt för att gömma webbvyn.
    */
   bottomIframeURL?: string | null;
   slides?:
