@@ -51,8 +51,9 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Remove this line if you do not have this folder
-# COPY --from=builder /app/public ./public
+# public/ is not bundled into the standalone output, so copy it explicitly or
+# static assets (e.g. /layout-previews/*.png) will 404 in production.
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
