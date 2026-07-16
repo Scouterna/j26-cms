@@ -8,6 +8,11 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   basePath: process.env.NEXT_BASE_PATH || '',
+  // Expose the base path to client components so they can prefix static asset URLs.
+  env: {
+    NEXT_PUBLIC_BASE_PATH: process.env.NEXT_BASE_PATH || '',
+  },
+  allowedDevOrigins: ['local.j26.se'],
   images: {
     localPatterns: [
       {

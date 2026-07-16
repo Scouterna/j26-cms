@@ -6,6 +6,9 @@ import { FieldDescription, FieldError, FieldLabel, useField } from '@payloadcms/
 import { layoutOptions } from './layoutOptions'
 import './LayoutField.css'
 
+// next/image doesn't prefix basePath onto a static src, so do it manually.
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
 export const LayoutField: SelectFieldClientComponent = ({ field, path }) => {
   const { value, setValue, showError, errorMessage } = useField<string>({ path })
 
@@ -42,7 +45,7 @@ export const LayoutField: SelectFieldClientComponent = ({ field, path }) => {
                   onError={(event) => {
                     event.currentTarget.style.display = 'none'
                   }}
-                  src={`/layout-previews/${option.value}.png`}
+                  src={`${BASE_PATH}/layout-previews/${option.value}.png`}
                 />
               </span>
               <span className="layout-field__label">{option.label}</span>
