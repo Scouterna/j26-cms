@@ -1,4 +1,32 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, RelationshipFieldValidation } from 'payload'
+import { typeField } from '../fields/screenType'
+
+// The screen's type can be changed after a playlist is chosen, so validate the match.
+const validatePlaylist: RelationshipFieldValidation = async (value, options) => {
+  if (!value) {
+    return 'Detta fält är obligatoriskt.'
+  }
+
+  const type: string | undefined = (options?.data as any)?.type
+  if (!type) {
+    return true
+  }
+
+  const id = typeof value === 'object' ? (value as any).id : value
+  const playlist = await options.req.payload.findByID({
+    collection: 'screen-playlists',
+    id,
+    depth: 0,
+    req: options.req,
+    disableErrors: true,
+  })
+
+  if (playlist && (playlist as any).type !== type) {
+    return 'Vald spellista matchar inte skärmens typ. Välj en spellista med samma typ eller byt skärmens typ.'
+  }
+
+  return true
+}
 
 export const ScreenScreens: CollectionConfig = {
   slug: 'screen-screens',
@@ -34,29 +62,19 @@ export const ScreenScreens: CollectionConfig = {
         return true
       },
     },
-    {
-      name: 'type',
-      label: 'Typ',
-      type: 'select',
-      required: true,
-      defaultValue: 'service',
-      options: [
-        {
-          label: 'Service (vänster)',
-          value: 'service',
-        },
-        {
-          label: 'Kommunikation (höger)',
-          value: 'kommunikation',
-        },
-      ],
-    },
+    typeField(),
     {
       name: 'playlist',
       label: 'Spellista',
       type: 'relationship',
       relationTo: 'screen-playlists',
       required: true,
+      // Only offer playlists of the screen's type.
+      filterOptions: ({ data }) => {
+        const type = (data as any)?.type
+        return type ? { type: { equals: type } } : true
+      },
+      validate: validatePlaylist,
     },
   ],
 }

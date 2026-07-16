@@ -1,9 +1,28 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, SelectFieldValidation } from 'payload'
 import { ScreenEmptyContentBlock } from '../blocks/ScreenEmptyContentBlock'
 import { ScreenIframeContentBlock } from '../blocks/ScreenIframeContentBlock'
 import { ScreenImageContentBlock } from '../blocks/ScreenImageContentBlock'
 import { ScreenRichTextContentBlock } from '../blocks/ScreenRichTextContentBlock'
 import { layoutOptions } from '../fields/layoutOptions'
+import { screenTypeOptions, typeField } from '../fields/screenType'
+
+// The chosen layout must belong to the slide's type.
+const validateLayout: SelectFieldValidation = (value, options) => {
+  // A custom validate replaces the built-in required check, so enforce it here.
+  if (!value) {
+    return 'Detta fält är obligatoriskt.'
+  }
+
+  const type: string | undefined = (options?.data as any)?.type
+  const layout = layoutOptions.find((option) => option.value === value)
+
+  if (layout && type && layout.type !== type) {
+    const typeLabel = screenTypeOptions.find((option) => option.value === type)?.label ?? type
+    return `Vald layout hör inte till typen "${typeLabel}". Välj en layout som matchar slidens typ eller byt typ.`
+  }
+
+  return true
+}
 
 export const ScreenSlides: CollectionConfig = {
   slug: 'screen-slides',
@@ -23,6 +42,7 @@ export const ScreenSlides: CollectionConfig = {
         description: 'Internt namn för att hålla ordning på slides. Visas inte på skärmarna',
       },
     },
+    typeField(),
     {
       name: 'layout',
       label: 'Layout',
@@ -36,6 +56,7 @@ export const ScreenSlides: CollectionConfig = {
         },
       },
       options: layoutOptions,
+      validate: validateLayout,
     },
     {
       name: 'content',

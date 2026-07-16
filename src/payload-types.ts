@@ -236,6 +236,7 @@ export interface ScreenSlide {
    * Internt namn för att hålla ordning på slides. Visas inte på skärmarna
    */
   name: string;
+  type: 'service' | 'kommunikation';
   /**
    * Layout för skärmen. Varje rad innehåll nedan tar upp en ruta i layouten i den ordning de ligger.
    */
@@ -297,6 +298,7 @@ export interface ScreenPlaylist {
    * Internt namn för att hålla ordning på spellistor. Visas inte på skärmarna
    */
   name: string;
+  type: 'service' | 'kommunikation';
   /**
    * Text som rullar längst ner på skärmen. Texten visas på samtliga slides i spellistan. Töm fältet för att gömma hela rullisten.
    */
@@ -516,6 +518,7 @@ export interface InfoPageSelect<T extends boolean = true> {
  */
 export interface ScreenSlidesSelect<T extends boolean = true> {
   name?: T;
+  type?: T;
   layout?: T;
   content?:
     | T
@@ -557,6 +560,7 @@ export interface ScreenSlidesSelect<T extends boolean = true> {
  */
 export interface ScreenPlaylistsSelect<T extends boolean = true> {
   name?: T;
+  type?: T;
   rollingText?: T;
   bottomIframeURL?: T;
   slides?:

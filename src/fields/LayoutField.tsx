@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { SelectFieldClientComponent } from 'payload'
 import { FieldDescription, FieldError, FieldLabel, useField } from '@payloadcms/ui'
 import { layoutOptions } from './layoutOptions'
@@ -11,6 +11,21 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
 export const LayoutField: SelectFieldClientComponent = ({ field, path }) => {
   const { value, setValue, showError, errorMessage } = useField<string>({ path })
+  // The slide's type sits at the document root, next to this field.
+  const { value: type } = useField<string>({ path: 'type' })
+
+  // Only offer layouts that belong to the currently selected type.
+  const visibleOptions = layoutOptions.filter((option) => !type || option.type === type)
+
+  // If the type changes so the current layout no longer matches, clear it so a
+  // now-hidden card can't stay silently selected. Validation is the backstop.
+  useEffect(() => {
+    if (!value || !type) return
+    const selectedLayout = layoutOptions.find((option) => option.value === value)
+    if (selectedLayout && selectedLayout.type !== type) {
+      setValue(undefined)
+    }
+  }, [type, value, setValue])
 
   const description = field?.admin?.description
   const staticDescription =
@@ -25,7 +40,7 @@ export const LayoutField: SelectFieldClientComponent = ({ field, path }) => {
       <FieldError message={errorMessage} path={path} showError={showError} />
 
       <div className="layout-field__grid" role="radiogroup">
-        {layoutOptions.map((option) => {
+        {visibleOptions.map((option) => {
           const selected = value === option.value
 
           return (
