@@ -21,7 +21,7 @@ export const layoutOptions: LayoutOption[] = [
     slots: ['Övre rad 4:3', 'Nedre rad 4:3'],
   },
   {
-    label: 'Galleri',
+    label: 'Kollage',
     value: 'kom_gallery',
     slots: [
       'Övre vänster 4:3',
@@ -38,7 +38,7 @@ export const layoutOptions: LayoutOption[] = [
     slots: ['Innehåll 3:4'],
   },
   {
-    label: 'Röstning, galleri',
+    label: 'Röstning, kollage',
     value: 'kom_vote_gallery',
     slots: ['Övre 4:3', 'Nedre vänster 3:4', 'Nedre mitten 3:4', 'Nedre höger 3:4'],
   },
