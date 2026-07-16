@@ -41,6 +41,13 @@ export const ScreenSlides: CollectionConfig = {
       name: 'content',
       label: 'Innehåll',
       type: 'blocks',
+      admin: {
+        description:
+          'Lägg till ett block per ruta i vald layout, i ordning. Radens namn visar vilken ruta blocket hamnar i – dra för att flytta. Använd "Tom" för en ruta som ska vara tom.',
+        components: {
+          beforeInput: ['/fields/ContentSlotStatus#ContentSlotStatus'],
+        },
+      },
       blocks: [
         ScreenIframeContentBlock,
         ScreenRichTextContentBlock,

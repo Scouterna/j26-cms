@@ -240,6 +240,9 @@ export interface ScreenSlide {
    * Layout för skärmen. Varje rad innehåll nedan tar upp en ruta i layouten i den ordning de ligger.
    */
   layout: 'kom_single' | 'kom_two_rows' | 'kom_gallery' | 'kom_vote_single' | 'kom_vote_gallery' | 'ser_info';
+  /**
+   * Lägg till ett block per ruta i vald layout, i ordning. Radens namn visar vilken ruta blocket hamnar i – dra för att flytta. Använd "Tom" för en ruta som ska vara tom.
+   */
   content?:
     | (
         | {

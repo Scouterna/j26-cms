@@ -4,6 +4,9 @@ export const ScreenImageContentBlock: Block = {
   slug: 'screen-image-content',
   admin: {
     disableBlockName: true,
+    components: {
+      Label: '/fields/ContentRowLabel#ContentRowLabel',
+    },
   },
   labels: {
     singular: 'Bild',
