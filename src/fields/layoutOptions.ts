@@ -55,7 +55,7 @@ export const layoutOptions: LayoutOption[] = [
     slots: ['Övre 4:3', 'Nedre vänster 3:4', 'Nedre mitten 3:4', 'Nedre höger 3:4'],
   },
   {
-    label: 'Endast Service - Nytt & nyttigt',
+    label: 'Nytt & nyttigt',
     value: 'ser_info',
     type: 'service',
     slots: ['Innehåll'],
