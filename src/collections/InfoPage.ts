@@ -1,9 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { isEditor } from '../access'
 
 export const InfoPage: CollectionConfig = {
   slug: 'info-page',
   access: {
     read: () => true,
+    create: isEditor,
+    update: isEditor,
+    delete: isEditor,
   },
   admin: {
     defaultColumns: ['title', 'content'],

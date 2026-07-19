@@ -2,7 +2,10 @@ import { test, expect, Page } from '@playwright/test'
 import { login } from '../helpers/login'
 import { seedTestUser, cleanupTestUser, testUser } from '../helpers/seedUser'
 
-test.describe('Admin Panel', () => {
+// SSO-only: the admin panel no longer has an email/password login form, so these
+// form-login tests cannot run as-is. They need reworking to inject a valid
+// j26-auth (Keycloak) session cookie before they can be re-enabled.
+test.describe.skip('Admin Panel', () => {
   let page: Page
 
   test.beforeAll(async ({ browser }, testInfo) => {

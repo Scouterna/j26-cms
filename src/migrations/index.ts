@@ -8,6 +8,7 @@ import * as migration_20260715_184346_show_important_info_on_service_only from '
 import * as migration_20260715_221843_bottom_iframe_url from './20260715_221843_bottom_iframe_url';
 import * as migration_20260716_112305_layout_previews from './20260716_112305_layout_previews';
 import * as migration_20260716_145336_screen_type_filters from './20260716_145336_screen_type_filters';
+import * as migration_20260719_211802_sso_auth from './20260719_211802_sso_auth';
 
 export const migrations = [
   {
@@ -58,6 +59,11 @@ export const migrations = [
   {
     up: migration_20260716_145336_screen_type_filters.up,
     down: migration_20260716_145336_screen_type_filters.down,
-    name: '20260716_145336_screen_type_filters'
+    name: '20260716_145336_screen_type_filters',
+  },
+  {
+    up: migration_20260719_211802_sso_auth.up,
+    down: migration_20260719_211802_sso_auth.down,
+    name: '20260719_211802_sso_auth'
   },
 ];

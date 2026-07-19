@@ -1,9 +1,13 @@
 import { getPayload } from 'payload'
 import config from '../../src/payload.config.js'
 
+// SSO-only: users are provisioned from Keycloak claims, so a seeded test user is
+// just a local mirror row (sub + roles), not an email/password account.
 export const testUser = {
+  sub: 'test-sub-0000',
   email: 'dev@payloadcms.com',
-  password: 'test',
+  name: 'Dev Tester',
+  roles: ['admin'] as ('admin' | 'editor')[],
 }
 
 /**
@@ -16,8 +20,8 @@ export async function seedTestUser(): Promise<void> {
   await payload.delete({
     collection: 'users',
     where: {
-      email: {
-        equals: testUser.email,
+      sub: {
+        equals: testUser.sub,
       },
     },
   })
@@ -38,8 +42,8 @@ export async function cleanupTestUser(): Promise<void> {
   await payload.delete({
     collection: 'users',
     where: {
-      email: {
-        equals: testUser.email,
+      sub: {
+        equals: testUser.sub,
       },
     },
   })

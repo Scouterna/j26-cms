@@ -1,10 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { isEditor } from '../access'
 
 export const ImportantInfo: GlobalConfig = {
   slug: 'important-info',
   label: 'Viktig info',
   access: {
     read: () => true,
+    update: isEditor,
   },
   fields: [
     {

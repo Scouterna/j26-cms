@@ -5,6 +5,7 @@ import { ScreenImageContentBlock } from '../blocks/ScreenImageContentBlock'
 import { ScreenRichTextContentBlock } from '../blocks/ScreenRichTextContentBlock'
 import { layoutOptions } from '../fields/layoutOptions'
 import { screenTypeOptions, typeField } from '../fields/screenType'
+import { isEditor } from '../access'
 
 // The chosen layout must belong to the slide's type.
 const validateLayout: SelectFieldValidation = (value, options) => {
@@ -28,6 +29,9 @@ export const ScreenSlides: CollectionConfig = {
   slug: 'screen-slides',
   access: {
     read: () => true,
+    create: isEditor,
+    update: isEditor,
+    delete: isEditor,
   },
   admin: {
     useAsTitle: 'name',

@@ -1,10 +1,14 @@
 import type { CollectionConfig } from 'payload'
 import { typeField } from '../fields/screenType'
+import { isEditor } from '../access'
 
 export const ScreenPlaylists: CollectionConfig = {
   slug: 'screen-playlists',
   access: {
     read: () => true,
+    create: isEditor,
+    update: isEditor,
+    delete: isEditor,
   },
   admin: {
     useAsTitle: 'name',

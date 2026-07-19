@@ -4,9 +4,11 @@ import { expect } from '@playwright/test'
 export interface LoginOptions {
   page: Page
   serverURL?: string
+  // NOTE: SSO-only removed the login form; this helper is retained only for the
+  // skipped form-login tests and needs reworking to inject a session cookie.
   user: {
     email: string
-    password: string
+    password?: string
   }
 }
 
@@ -21,7 +23,7 @@ export async function login({
   await page.goto(`${serverURL}/admin/login`)
 
   await page.fill('#field-email', user.email)
-  await page.fill('#field-password', user.password)
+  await page.fill('#field-password', user.password ?? '')
   await page.click('button[type="submit"]')
 
   await page.waitForURL(`${serverURL}/admin`)

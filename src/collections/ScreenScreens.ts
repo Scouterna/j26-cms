@@ -1,5 +1,6 @@
 import type { CollectionConfig, RelationshipFieldValidation } from 'payload'
 import { typeField } from '../fields/screenType'
+import { isEditor } from '../access'
 
 // The screen's type can be changed after a playlist is chosen, so validate the match.
 const validatePlaylist: RelationshipFieldValidation = async (value, options) => {
@@ -32,6 +33,9 @@ export const ScreenScreens: CollectionConfig = {
   slug: 'screen-screens',
   access: {
     read: () => true,
+    create: isEditor,
+    update: isEditor,
+    delete: isEditor,
   },
   admin: {
     useAsTitle: 'name',

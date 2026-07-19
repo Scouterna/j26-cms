@@ -30,8 +30,12 @@ export default buildConfig({
   },
   admin: {
     user: Users.slug,
+    theme: 'light',
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      beforeLogin: ['/components/BeforeLogin#BeforeLogin'],
     },
   },
   cors: {
@@ -53,6 +57,32 @@ export default buildConfig({
   sharp,
   plugins: [],
   endpoints: [
+    {
+      // Consumed by the j26-app shell (see J26_PUBLIC_APP_CONFIGS) to render the
+      // CMS tool in the navigation. Served at /_services/cms/api/app-config.
+      // req.user is populated by the Keycloak auth strategy only for users with a
+      // j26-cms role, so returning 401 otherwise hides the tool from everyone
+      // without CMS access.
+      path: '/app-config',
+      method: 'get',
+      handler: (req) => {
+        if (!req.user) {
+          return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        }
+
+        return Response.json({
+          navigation: [
+            {
+              type: 'page',
+              id: 'page_cms',
+              label: 'Hantera innehåll',
+              icon: 'edit',
+              path: '/_services/cms/admin',
+            },
+          ],
+        })
+      },
+    },
     {
       path: '/screens/:slug/content',
       method: 'get',
