@@ -9,6 +9,7 @@ import * as migration_20260715_221843_bottom_iframe_url from './20260715_221843_
 import * as migration_20260716_112305_layout_previews from './20260716_112305_layout_previews';
 import * as migration_20260716_145336_screen_type_filters from './20260716_145336_screen_type_filters';
 import * as migration_20260719_211802_sso_auth from './20260719_211802_sso_auth';
+import * as migration_20260723_135156_enable_info_page_drafts from './20260723_135156_enable_info_page_drafts';
 
 export const migrations = [
   {
@@ -64,6 +65,11 @@ export const migrations = [
   {
     up: migration_20260719_211802_sso_auth.up,
     down: migration_20260719_211802_sso_auth.down,
-    name: '20260719_211802_sso_auth'
+    name: '20260719_211802_sso_auth',
+  },
+  {
+    up: migration_20260723_135156_enable_info_page_drafts.up,
+    down: migration_20260723_135156_enable_info_page_drafts.down,
+    name: '20260723_135156_enable_info_page_drafts'
   },
 ];

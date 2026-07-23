@@ -12,6 +12,9 @@ export const InfoPage: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'content'],
   },
+  versions: {
+    drafts: true,
+  },
   fields: [
     {
       name: 'title',
