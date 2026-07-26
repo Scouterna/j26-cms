@@ -73,6 +73,7 @@ export interface Config {
     'screen-slides': ScreenSlide;
     'screen-playlists': ScreenPlaylist;
     'screen-screens': ScreenScreen;
+    search: Search;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     'screen-slides': ScreenSlidesSelect<false> | ScreenSlidesSelect<true>;
     'screen-playlists': ScreenPlaylistsSelect<false> | ScreenPlaylistsSelect<true>;
     'screen-screens': ScreenScreensSelect<false> | ScreenScreensSelect<true>;
+    search: SearchSelect<false> | SearchSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -327,6 +329,24 @@ export interface ScreenScreen {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: number;
+  title?: string | null;
+  priority?: number | null;
+  doc: {
+    relationTo: 'info-page';
+    value: number | InfoPage;
+  };
+  searchText?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -373,6 +393,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'screen-screens';
         value: number | ScreenScreen;
+      } | null)
+    | ({
+        relationTo: 'search';
+        value: number | Search;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -563,6 +587,18 @@ export interface ScreenScreensSelect<T extends boolean = true> {
   slug?: T;
   type?: T;
   playlist?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search_select".
+ */
+export interface SearchSelect<T extends boolean = true> {
+  title?: T;
+  priority?: T;
+  doc?: T;
+  searchText?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -10,6 +10,7 @@ import * as migration_20260716_112305_layout_previews from './20260716_112305_la
 import * as migration_20260716_145336_screen_type_filters from './20260716_145336_screen_type_filters';
 import * as migration_20260719_211802_sso_auth from './20260719_211802_sso_auth';
 import * as migration_20260723_135156_enable_info_page_drafts from './20260723_135156_enable_info_page_drafts';
+import * as migration_20260726_102312_search_plugin from './20260726_102312_search_plugin';
 
 export const migrations = [
   {
@@ -70,6 +71,11 @@ export const migrations = [
   {
     up: migration_20260723_135156_enable_info_page_drafts.up,
     down: migration_20260723_135156_enable_info_page_drafts.down,
-    name: '20260723_135156_enable_info_page_drafts'
+    name: '20260723_135156_enable_info_page_drafts',
+  },
+  {
+    up: migration_20260726_102312_search_plugin.up,
+    down: migration_20260726_102312_search_plugin.down,
+    name: '20260726_102312_search_plugin'
   },
 ];

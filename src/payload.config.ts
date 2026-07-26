@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -15,6 +16,8 @@ import { ScreenSlides } from './collections/ScreenSlides'
 import { ScreenPlaylists } from './collections/ScreenPlaylists'
 import { ScreenScreens } from './collections/ScreenScreens'
 import { ImportantInfo } from './globals/ImportantInfo'
+import { beforeSync } from './search/beforeSync'
+import { isEditor } from './access'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -55,7 +58,32 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    searchPlugin({
+      collections: ['info-page'],
+      beforeSync,
+      // See src/search/beforeSync.ts — all locales are flattened into one
+      // non-localized `searchText` field instead of localizing the index.
+      localize: false,
+      searchOverrides: {
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          {
+            name: 'searchText',
+            type: 'textarea',
+            admin: {
+              readOnly: true,
+            },
+          },
+        ],
+        access: {
+          // Reindexing requires update + delete on the search collection.
+          delete: isEditor,
+          update: isEditor,
+        },
+      },
+    }),
+  ],
   endpoints: [
     {
       // Consumed by the j26-app shell (see J26_PUBLIC_APP_CONFIGS) to render the

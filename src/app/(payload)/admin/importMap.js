@@ -25,6 +25,8 @@ import { LayoutField as LayoutField_0a3913a4b7f60c2207fba41393c6cc43 } from '../
 import { ContentRowLabel as ContentRowLabel_b0e26463e9ee99813c7235089a93bc2b } from '../../../fields/ContentRowLabel'
 import { ContentSlotStatus as ContentSlotStatus_d73bd088bcd26363f8068f8a3260eb92 } from '../../../fields/ContentSlotStatus'
 import { SurveyEmbedField as SurveyEmbedField_81b4fcdd3744a88d91d86b293f1c5f38 } from '../../../fields/SurveyEmbedField'
+import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
+import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { BeforeLogin as BeforeLogin_01d809f8b80f9b2f728eaaa8a4fcc420 } from '../../../components/BeforeLogin'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -57,6 +59,8 @@ export const importMap = {
   "/fields/ContentRowLabel#ContentRowLabel": ContentRowLabel_b0e26463e9ee99813c7235089a93bc2b,
   "/fields/ContentSlotStatus#ContentSlotStatus": ContentSlotStatus_d73bd088bcd26363f8068f8a3260eb92,
   "/fields/SurveyEmbedField#SurveyEmbedField": SurveyEmbedField_81b4fcdd3744a88d91d86b293f1c5f38,
+  "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
+  "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "/components/BeforeLogin#BeforeLogin": BeforeLogin_01d809f8b80f9b2f728eaaa8a4fcc420,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
