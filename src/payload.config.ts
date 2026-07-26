@@ -153,14 +153,19 @@ export default buildConfig({
         const showImportantInfo = importantInfo.active && screen.type === 'service'
 
         // The bottom iframe is stored as a path relative to the host that serves
-        // the interactive screens. Return it as an absolute URL (prefixed with
-        // SERVER_URL) so the screen can embed it directly.
-        const baseURL = (process.env.SERVER_URL ?? '').replace(/\/$/, '')
+        // the interactive screens. Resolve it against SERVER_URL so the screen can
+        // embed it directly. Standard URL resolution is used, so a root-relative
+        // path ("/foo") resolves against the origin only — it does not inherit any
+        // path prefix SERVER_URL may have (e.g. /_services/cms) — while a relative
+        // path ("foo") resolves against that prefix.
+        const serverURL = process.env.SERVER_URL
         const bottomIframe = isKommunikation ? playlist.bottomIframeURL?.trim() : undefined
         const bottomIframeURL = bottomIframe
           ? /^https?:\/\//i.test(bottomIframe)
             ? bottomIframe
-            : `${baseURL}${bottomIframe.startsWith('/') ? '' : '/'}${bottomIframe}`
+            : serverURL
+              ? new URL(bottomIframe, serverURL.endsWith('/') ? serverURL : `${serverURL}/`).toString()
+              : bottomIframe
           : null
 
         return Response.json({
